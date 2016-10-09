@@ -7,7 +7,7 @@ function complexInstaller(props) {
 complexInstaller.prompt = [
 	{
 		name: 'modules',
-		message: 'Selected technologue stack of your project',
+		message: 'Select technologue stack of your project',
 		type: 'checkbox',
 		choices: [
 			{
@@ -15,8 +15,8 @@ complexInstaller.prompt = [
 				value: 'css'
 			},
 			{
-				name: 'Javascript syntax extensions',
-				value: 'extendedjs'
+				name: 'Javascript extensions',
+				value: 'extjs'
 			}
 		],
 		default: []

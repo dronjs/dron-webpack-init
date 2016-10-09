@@ -3,34 +3,63 @@ function webPackInstaller(props) {
 		webpackConfFileName: props.filename,
 		devDependencies: new this.UniqArray(),
 		dependencies: new this.UniqArray(),
-		initial: [],
-		entry: '',
+		extensions: new this.UniqArray(),
+		initial: [
+			"var path = require(\"path\");"
+		],
+		entry: {},
 		output: {
 			path: '',
-			filename: ''
+	    filename: "[name].js",
+	    libraryTarget: 'umd',
+	    library: 'app'
 		},
 		loaders: {},
-		plugins: [],
-		extends: {}
+		plugins: new this.UniqArray(),
+		extends: {},
+		postTasks: [],
+		package: {},
+		isDevServer: props.isDevServer
 	};
 
-	//if (~props.mode.indexOf('simple')) return require('./webpack/simple.js');
-	if (props.mode.includes('complex')) return require('./webpack/complex.js');
+	this.draft.devDependencies = this.draft.devDependencies.concat(['webpack']);
+	/**
+	 * Setup dev server
+	 */
+	if (props.isDevServer) {
+		this.draft.devDependencies = this.draft.devDependencies.concat(['webpack-dev-server']);
+	}
+
+	return this.run('ensurePackage')
+	.then(function(packageJson) {
+		if (!packageJson) {
+			this.log('We continue without package.json');
+		} else {
+			this.draft.package = packageJson;
+		}
+		return require('./webpack/entry.js');
+	}.bind(this));
 }
 
 webPackInstaller.prompt = [
-	{
-		name: 'mode',
-		type: 'list',
-		message: 'Select installation mode',
-		default: 'complex',
-		choices: ['complex']
-	},
+	// {
+	// 	name: 'mode',
+	// 	type: 'list',
+	// 	message: 'Select installation mode',
+	// 	default: 'complex',
+	// 	choices: ['complex']
+	// },
 	{
 		name: "filename",
-		message: "Webpack file name"
+		message: "Webpack file name",
 		type: "input",
 		default: "webpack.config.js"
+	},
+	{
+		name: "isDevServer",
+		message: 'Do you plan to use the Webpack development server?',
+		type: 'confirm',
+		default: true
 	}
 ];
 

@@ -3,8 +3,9 @@ function cssModules(props) {
 		test: /\.css$/,
 		loader: []
 	};
-	return Object.keys(props).map(function(name) {
-		return require('./modules/'+name+'.js');
+
+	return this._.map(props, function(value, name) {
+		return require('./css/'+name+'.js')(value);
 	});
 }
 
@@ -12,7 +13,7 @@ cssModules.prompt = [
 	{
 		type: 'confirm',
 		name: 'styleLoader',
-		message: 'Add CSS to the DOM by injecting?',
+		message: 'Insert CSS into the page by javascript?',
 		required: true
 	},
 	{
@@ -24,8 +25,8 @@ cssModules.prompt = [
 	{
 		type: 'confirm',
 		name: 'extendedCss',
-		message: 'Use CSS extensions?',
-		required: true
+		message: 'Use CSS processors?',
+		required: false
 	}
 ];
 

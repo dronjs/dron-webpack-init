@@ -1,14 +1,15 @@
-var webpack = require('./installers/webpack.js');
+var sower = require('./installers/webpack.js');
+var reaper = require('./installers/reaper.js');
 /**
  Dron module `dron-webpack-init`*
 */
-function dronWebpackInit() {
+function install() {
+	return this.run(sower)
+	.then(function(test) {
+		return reaper;
+	}.bind(this));
 }
 
 module.exports = function factory(argv) {
-	return this.run(webpack)
-	.then(function(test) {
-		console.log('READY', this.draft);
-		return null;
-	}.bind(this));
+	return install;
 }

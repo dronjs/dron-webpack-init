@@ -14,5 +14,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Vladimir Kalmykov <vladimirmorulus@gmail.com>"
+  "author": "Vladimir Kalmykov <vladimirmorulus@gmail.com>",
+  "dependencies": {
+    "dasherize": "github:polyvitamins/dasherize"
+  }
 }
