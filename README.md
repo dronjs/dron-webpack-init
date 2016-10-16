@@ -83,7 +83,7 @@ Supported with minimal settings
 
 My everyday technology stack is Babel + Postcss + Jsx. I do not have enough time to test and create configurators for another stack. Your help to set up correctly and test TypeScript, CoffeeScript, Less, Scss, etc. is welcome.
 
-The utility is written using API of Dron. To learn it, please, visit <http://morulus.github.io/dron>.
+The utility is written using API of Dron. To learn it, please, visit <http://github.com/morulus/dron>.
 
 # Author
 
