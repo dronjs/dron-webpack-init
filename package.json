@@ -1,6 +1,6 @@
 {
   "name": "dron-webpack-init",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "dron": {
     "version": "0.0.4"
