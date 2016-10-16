@@ -69,7 +69,7 @@ filepaths.prompt = function() {
       name: "publicPath",
       type: "input",
       message: "Enter public path",
-      default: "./",
+      default: "/",
       when: function() {
         return this.draft.isDevServer;
       }.bind(this)

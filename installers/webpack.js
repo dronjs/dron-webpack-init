@@ -18,6 +18,7 @@ function webPackInstaller(props) {
 		plugins: new this.UniqArray(),
 		extends: {},
 		postTasks: [],
+		preTasks: [],
 		package: {},
 		isDevServer: props.isDevServer
 	};

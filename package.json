@@ -16,6 +16,7 @@
   },
   "author": "Vladimir Kalmykov <vladimirmorulus@gmail.com>",
   "dependencies": {
-    "dasherize": "github:polyvitamins/dasherize"
+    "dasherize": "github:polyvitamins/dasherize",
+    "stringify-object-extract-functions": "^2.4.1"
   }
 }
