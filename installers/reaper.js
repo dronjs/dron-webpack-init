@@ -1,6 +1,12 @@
 var stringifyObject = require('stringify-object-extract-functions');
 var install = require('./install.js');
 
+function validateOutput(output) {
+  var customOutput = Object.assign({}, output);
+  if (customOutput.publicPath.substr(0,1)=='.'&&customOutput.publicPath.substr(1,1)!=='.') customOutput.publicPath = customOutput.publicPath.substr(1);
+  return customOutput;
+}
+
 function reaper() {
   return (this.draft.preTasks.length>0 ? this.run(this.draft.preTasks) : Promise.resolve(true))
   .then(function() {
@@ -14,7 +20,7 @@ function reaper() {
      */
      var webpack = {
       entry: this.draft.entry,
-      output: this.draft.output,
+      output: validateOutput(this.draft.output),
       module: {
         loaders: this._.values(this.draft.loaders).map(function(loader) {
           return Object.assign(loader, {

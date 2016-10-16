@@ -1,6 +1,12 @@
 var path = require('path');
 var dasherize = require('dasherize');
 var indexHtmlTemplatePath = require.resolve('./templates/index.html');
+
+function validatePublicPath(pp) {
+  if (pp.substr(0,1)==path.sep) pp='.'+pp;
+  return pp;
+}
+
 function filepaths(props) {
   /**
    * Output
@@ -19,7 +25,7 @@ function filepaths(props) {
     this.draft.output.publicPath = props.publicPath;
 
     this.draft.postTasks.push(function() {
-      var indexHtml = this.touch(path.join(props.publicPath, 'index.html'));
+      var indexHtml = this.touch(path.join(validatePublicPath(props.publicPath), 'index.html'));
       if (!indexHtml.exists()) {
         indexHtml.write(this.touch(indexHtmlTemplatePath).ejs(this.draft));
       }
