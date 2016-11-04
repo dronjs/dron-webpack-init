@@ -16,15 +16,22 @@ dron webpack-init
 
 Follow the prompt in command line.
 
-# Equipment
+# Command line options
 
+### __--config-only__
+Only create and configurate _webpack.config.js_ without creaing _package.json_, installing Npm packages, etc.   
+```shell
+dron webpack-init --config-only
+```
+
+# Equipment
 
 ## General
 - Autocreating package.json if not exists
-- Webpack config filename
+- Set webpack config filename
 - Multiple entry points
 - Output configuration
-- Autoinstall npm dependencies
+- Autoinstall Npm dependencies
 
 ## Webpack-dev-server
 

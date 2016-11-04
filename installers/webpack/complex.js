@@ -1,7 +1,7 @@
 function complexInstaller(props) {
-	return props.modules.map(function(name) {
+	return this.run(props.modules.map(function(name) {
 		return require('./modules/'+name+'.js');
-	});
+	}));
 }
 
 complexInstaller.prompt = [

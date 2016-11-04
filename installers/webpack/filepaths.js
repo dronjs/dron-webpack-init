@@ -23,14 +23,16 @@ function filepaths(props) {
    */
   if (this.draft.isDevServer) {
     this.draft.output.publicPath = props.publicPath;
-
-    this.draft.postTasks.push(function() {
-      var indexHtml = this.touch(path.join(validatePublicPath(props.publicPath), 'index.html'));
-      if (!indexHtml.exists()) {
-        indexHtml.write(this.touch(indexHtmlTemplatePath).ejs(this.draft));
-      }
-      return true;
-    });
+    this.draft.devDependencies = this.draft.devDependencies.concat(['babel-core']);
+    if (this.draft.setupEnv) {
+      this.draft.postTasks.push(function() {
+        var indexHtml = this.touch(path.join(validatePublicPath(props.publicPath), 'index.html'));
+        if (!indexHtml.exists()) {
+          indexHtml.write(this.touch(indexHtmlTemplatePath).ejs(this.draft));
+        }
+        return true;
+      });
+    }
   }
   return require('./complex.js');
 }

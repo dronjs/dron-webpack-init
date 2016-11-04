@@ -15,12 +15,14 @@ function filepaths(props) {
   /**
    * Post task to create entry points
    */
-  this.draft.postTasks.push(function() {
-      if (!this.touch(props.entry).exists()) {
-        this.touch(props.entry).write('');
-      }
-      return true;
-  });
+  if (this.draft.setupEnv) {
+    this.draft.postTasks.push(function() {
+        if (!this.touch(props.entry).exists()) {
+          this.touch(props.entry).write('');
+        }
+        return true;
+    });
+  }
   if (!props.hasOwnProperty('moreEntry')||props.moreEntry) {
     return filepaths;
   } else {

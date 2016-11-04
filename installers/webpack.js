@@ -20,7 +20,9 @@ function webPackInstaller(props) {
 		postTasks: [],
 		preTasks: [],
 		package: {},
-		isDevServer: props.isDevServer
+		isDevServer: props.isDevServer,
+		setupNpm: props.setupNpm,
+		setupEnv: props.setupEnv
 	};
 
 	this.draft.devDependencies = this.draft.devDependencies.concat(['webpack']);
@@ -31,37 +33,48 @@ function webPackInstaller(props) {
 		this.draft.devDependencies = this.draft.devDependencies.concat(['webpack-dev-server']);
 	}
 
-	return this.run('ensurePackage')
-	.then(function(packageJson) {
-		if (!packageJson) {
-			this.log('We continue without package.json');
-		} else {
-			this.draft.package = packageJson;
-		}
+	if (this.draft.setupNpm) {
+		return this.run('ensurePackage')
+		.then(function(packageJson) {
+			if (!packageJson) {
+				this.log('We continue without package.json');
+			} else {
+				this.draft.package = packageJson;
+			}
+			return require('./webpack/entry.js');
+		}.bind(this));
+	} else {
 		return require('./webpack/entry.js');
-	}.bind(this));
+	}
 }
 
-webPackInstaller.prompt = [
-	// {
-	// 	name: 'mode',
-	// 	type: 'list',
-	// 	message: 'Select installation mode',
-	// 	default: 'complex',
-	// 	choices: ['complex']
-	// },
-	{
-		name: "filename",
-		message: "Webpack file name",
-		type: "input",
-		default: "webpack.config.js"
-	},
-	{
-		name: "isDevServer",
-		message: 'Do you plan to use the Webpack development server?',
-		type: 'confirm',
-		default: true
-	}
-];
+webPackInstaller.defaultProps = {
+	setupNpm: true,
+	setupEnv: true
+}
+
+webPackInstaller.prompt = function(props) {
+	return [
+		// {
+		// 	name: 'mode',
+		// 	type: 'list',
+		// 	message: 'Select installation mode',
+		// 	default: 'complex',
+		// 	choices: ['complex']
+		// },
+		{
+			name: "filename",
+			message: "Webpack file name",
+			type: "input",
+			default: "webpack.config.js"
+		},
+		{
+			name: "isDevServer",
+			message: 'Do you plan to use the Webpack development server?',
+			type: 'confirm',
+			default: true
+		}
+	];
+}
 
 module.exports = webPackInstaller;

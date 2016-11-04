@@ -16,14 +16,19 @@ function install(props) {
 }
 
 install.prompt = function() {
-  this.log('Webpack requires next dependecies:');
-  this.log(Array.from(this.draft.dependencies).concat(Array.from(this.draft.devDependencies)).join(', '));
+  if (this.draft.setupNpm) {
+    this.log('Webpack requires next dependecies:');
+    this.log(Array.from(this.draft.dependencies).concat(Array.from(this.draft.devDependencies)).join(', '));
+  }
   return [
     {
       name: 'npminstall',
       type: 'confirm',
       message: 'Install npm dependecies?',
-      default: true
+      default: true,
+      when: function() {
+        return Boolean(this.draft.setupNpm);
+      }.bind(this)
     }
   ]
 }
