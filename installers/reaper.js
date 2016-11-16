@@ -3,7 +3,9 @@ var install = require('./install.js');
 
 function validateOutput(output) {
   var customOutput = Object.assign({}, output);
-  if (customOutput.publicPath.substr(0,1)=='.'&&customOutput.publicPath.substr(1,1)!=='.') customOutput.publicPath = customOutput.publicPath.substr(1);
+  if ("string"===typeof customOutput.publicPath&&customOutput.publicPath.substr(0,1)=='.'&&customOutput.publicPath.substr(1,1)!=='.') {
+    customOutput.publicPath = customOutput.publicPath.substr(1);
+  }
   return customOutput;
 }
 
